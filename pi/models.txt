@@ -1,0 +1,57 @@
+
+concept Produccion {
+  o String nombre
+  o String periodoAnterior
+  o String periodoSolicitado
+}
+
+concept Explosivo {
+  o String nombre
+  o String periodoAnterior
+  o String saldoPeriodoAnterior
+  o String periodoSolicitado
+  o Boolean autorizado default=true
+}
+
+asset Certificado identified by codigoUnico {
+    o String codigoUnico
+    o Boolean verificacion default = false
+    o String traderId
+    o String nombreRepresentante
+    o String cargoRepresentante
+    o String dniRepresentante
+    o String telRepresentante
+    o String emailRepresentante
+    
+    o String departamento
+    o String provincia
+    o String distrito
+
+    o String motivo
+    o Produccion[] producciones
+    o Explosivo[] explosivos
+    --> Trader propietario
+}
+
+participant Company identified by companyId {
+  o String companyId
+  o String name
+  o String tipo
+  o String fechaCreacion
+
+}
+
+participant Trader identified by traderId {
+    o String traderId
+    o String nombre
+    o String apellido
+    o String username
+    o String password
+    o String companyId
+    o String dni
+
+}
+transaction Transaccion {
+    --> Certificado certificado
+    --> Trader newPropietario
+}
